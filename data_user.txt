@@ -1,0 +1,10 @@
+data_user = {
+“username”: “avl”,
+“password”: “0512avl”,
+“first name”: “Avel”,
+“last name”: “Agerie”,
+“email”: “avel_agerie@gmail.com”,
+“gender”: “M”,
+“status”: 1,
+“faculty”: “SE”
+}
