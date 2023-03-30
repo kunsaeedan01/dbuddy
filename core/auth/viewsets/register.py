@@ -4,6 +4,7 @@ from rest_framework import status
 from core.user.models import User
 from core.user.serializers import UserSerializer
 from core.user.models import UserManager
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class RegisterViewSet(viewsets.ViewSet):
@@ -19,7 +20,19 @@ class RegisterViewSet(viewsets.ViewSet):
 
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
-        user_manager = UserManager()
-        user = user_manager.create_user(username=data.get('username'), email=data.get('email'), password=password)
+        user = User.objects.create_user(username=data.get('username'), email=data.get('email'), password=password)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        refresh = RefreshToken.for_user(user)
+        tokens = {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
+
+        serialized_user = UserSerializer(user).data
+
+        response_data = {
+            'user': serialized_user,
+            'tokens': tokens,
+        }
+
+        return Response(response_data, status=status.HTTP_201_CREATED)
