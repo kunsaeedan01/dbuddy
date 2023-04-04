@@ -8,6 +8,17 @@ from core.user.serializers import UserSerializer
 
 class ProjectSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
+    liked = serializers.SerializerMethodField()
+    likes_count = serializers.SerializerMethodField()
+
+    def get_liked(self, instance):
+        request = self.context.get('request', None)
+        if request is None or request.user.is_anonymous:
+            return False
+        return request.user.has_liked(instance)
+
+    def get_likes_count(self, instance): 
+        return instance.liked_by.count()
 
     def validate_author(self, value):
         if self.context["request"].user != value:
@@ -20,9 +31,15 @@ class ProjectSerializer(AbstractSerializer):
         rep["author"] = UserSerializer(author).data
         return rep
 
+    def update(self, instance, validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
+        instance = super().update(instance, validated_data)
+        return instance
+
     class Meta:
         model = Project
-        fields = ['id', 'author', 'title', 'description', 'edited', 'created', 'updated']
+        fields = ['id', 'author', 'title', 'description', 'liked', 'likes_count', 'edited', 'created', 'updated']
         read_only_fields = ['edited']
 
         

@@ -72,6 +72,16 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     group = models.CharField(max_length=16, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    projects_liked = models.ManyToManyField("core_project.Project", related_name="liked_by")
+
+    def like(self, project):
+        return self.projects_liked.add(project)
+    
+    def remove_like(self, project):
+        return self.projects_liked.remove(post)
+
+    def has_liked(self, project):
+        return self.projects_liked.filter(pk=project.pk).exists()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
