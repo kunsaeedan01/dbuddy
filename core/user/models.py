@@ -29,6 +29,8 @@ class UserManager(BaseUserManager, AbstractManager):
             raise TypeError('Superusers must have an email.')
         if username is None:
             raise TypeError('Superusers must have a username.')
+        kwargs.setdefault('is_staff', True)
+        kwargs.setdefault('is_superuser', True)
         user = self.create_user(username, email, password, **kwargs)
         user.is_superuser = True
         user.save(using=self._db)
@@ -73,6 +75,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     projects_liked = models.ManyToManyField("core_project.Project", related_name="liked_by")
+    is_staff = models.BooleanField(default=False)
 
     def like(self, project):
         return self.projects_liked.add(project)

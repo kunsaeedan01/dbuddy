@@ -1,15 +1,16 @@
 from rest_framework.permissions import IsAuthenticated
-from core.abstract.viewsets import AbstactViewSet
+from core.abstract.viewsets import AbstractViewSet
 from core.project.models import Project
 from core.project.serializers import ProjectSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
+from core.auth.permissions import UserPermission
 
 
-class ProjectViewSet(AbstactViewSet):
+class ProjectViewSet(AbstractViewSet):
     http_method_names = ('post', 'get', 'put', 'delete')
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (UserPermission, )
     serializer_class = ProjectSerializer
 
     @action(methods=['post'], detail=True)

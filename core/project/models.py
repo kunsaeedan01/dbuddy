@@ -30,7 +30,7 @@ class Project(AbstractModel):
     objects = ProjectManager()
 
     def __str__(self):
-        return f"{self.author.title}"
+        return f"{self.title}"
 
     class Meta:
         db_table = "'core.post'"
