@@ -17,7 +17,7 @@ class UserManager(BaseUserManager, AbstractManager):
             raise TypeError('User must have an email')
         if password is None:
             raise TypeError('User must have a password')
-        user = self.model(username=username, email=self.normalize_email(email))
+        user = self.model(username=username, email=self.normalize_email(email), **kwargs)
         user.set_password(password)  # hash the password before storing
         user.save(using=self._db)
         return user

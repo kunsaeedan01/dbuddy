@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +44,8 @@ INSTALLED_APPS = [
     'core.user',
     'core.auth',
     'core.project', 
-    'core.comment'
+    'core.comment',
+    'core.join',
     
 ]
 
@@ -88,6 +90,11 @@ REST_FRAMEWORK = {
  'PAGE_SIZE': 15,
 }
 
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7)
+}
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
