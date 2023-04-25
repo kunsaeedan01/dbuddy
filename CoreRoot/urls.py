@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from core import swagger
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('core.routers'))
+    path('api/', include('core.routers')), 
+    path('swagger/', swagger.schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', swagger.schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
