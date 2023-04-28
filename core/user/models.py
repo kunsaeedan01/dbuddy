@@ -13,8 +13,8 @@ class UserManager(BaseUserManager, AbstractManager):
     def create_user(self, username, email, password=None, **kwargs):
         if username is None:
             raise TypeError('User must have an username')
-        if email is None:
-            raise TypeError('User must have an email')
+        # if email is None:
+        #     raise TypeError('User must have an email')
         if password is None:
             raise TypeError('User must have a password')
         user = self.model(username=username, email=self.normalize_email(email), **kwargs)
@@ -25,8 +25,8 @@ class UserManager(BaseUserManager, AbstractManager):
     def create_superuser(self, username, email, password, **kwargs):
         if password is None:
             raise TypeError('Superusers must have a password.')
-        if email is None:
-            raise TypeError('Superusers must have an email.')
+        # if email is None:
+        #     raise TypeError('Superusers must have an email.')
         if username is None:
             raise TypeError('Superusers must have a username.')
         kwargs.setdefault('is_staff', True)
@@ -72,7 +72,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     status = models.CharField(_('Role status'), choices=STATUS_CHOICE, null=True, blank=True, default="2", max_length=10)
     faculty = models.CharField(_('Study/work faculty'), choices=FACULTY_CHOICE, max_length=4)
     group = models.CharField(max_length=16, null=True, blank=True)
-    skills = models.ManyToManyField('core_user.Skill', blank=True)
+    skills = models.ManyToManyField('core_user.Skill', blank=True, null=True)
     bio = models.TextField(null=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -88,8 +88,8 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     def has_liked(self, project):
         return self.projects_liked.filter(pk=project.pk).exists()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    # REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
 

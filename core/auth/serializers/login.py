@@ -5,24 +5,25 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from core.user.serializers import UserSerializer
 from rest_framework_simplejwt.settings import api_settings
+from django.contrib.auth.models import update_last_login
+from rest_framework.response import Response
 
 User = get_user_model()
 
 
-class LoginSerializer(TokenObtainPairSerializer):
-    email = serializers.EmailField()
-    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
-    access_token = serializers.CharField(read_only=True)
-    refresh_token = serializers.CharField(read_only=True)
 
+class LoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
+
         refresh = self.get_token(self.user)
-        data['user'] = UserSerializer(self.user).data
-        data['refresh'] = str(refresh)
-        data['access'] = str(refresh.access_token)
+        data["user"] = UserSerializer(self.user, context=self.context).data
+        data["refresh"] = str(refresh)
+        data["access"] = str(refresh.access_token)
+
         if api_settings.UPDATE_LAST_LOGIN:
             update_last_login(None, self.user)
+
         return data
         # email = attrs.get('email')
         # password = attrs.get('password')
