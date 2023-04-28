@@ -73,6 +73,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     faculty = models.CharField(_('Study/work faculty'), choices=FACULTY_CHOICE, max_length=4)
     group = models.CharField(max_length=16, null=True, blank=True)
     skills = models.ManyToManyField('core_user.Skill', blank=True)
+    bio = models.TextField(null=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     projects_liked = models.ManyToManyField("core_project.Project", related_name="liked_by")

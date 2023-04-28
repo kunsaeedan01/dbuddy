@@ -39,7 +39,9 @@ class ProjectSerializer(AbstractSerializer):
 
     class Meta:
         model = Project
-        fields = ['id', 'author', 'title', 'description', 'liked', 'likes_count', 'edited', 'created', 'updated']
+        fields = ['id', 'author', 'title', 'description', 'tags', 
+                  'participant1','participant2','participant3','liked', 
+                  'likes_count', 'edited', 'created', 'updated']
         read_only_fields = ['edited']
 
         
