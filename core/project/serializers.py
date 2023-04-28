@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from core.abstract.serializers import AbstractSerializer
-from core.project.models import Project
+from core.project.models import Project, Tag
 from core.user.models import User
 from core.user.serializers import UserSerializer
 
@@ -43,3 +43,8 @@ class ProjectSerializer(AbstractSerializer):
         read_only_fields = ['edited']
 
         
+class TagSerializer(AbstractSerializer):
+    class Meta:
+        model = Tag
+        fields = ['id', 'project', 'name', 'edited', 'updated', 'created']
+        read_only_fields = ['edited']

@@ -72,6 +72,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     status = models.IntegerField(_('Role status'), choices=STATUS_CHOICE, null=True, blank=True, default=2)
     faculty = models.CharField(_('Study/work faculty'), choices=FACULTY_CHOICE, max_length=4)
     group = models.CharField(max_length=16, null=True, blank=True)
+    skills = models.ManyToManyField('core_user.Skill', blank=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     projects_liked = models.ManyToManyField("core_project.Project", related_name="liked_by")
@@ -81,7 +82,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         return self.projects_liked.add(project)
     
     def remove_like(self, project):
-        return self.projects_liked.remove(post)
+        return self.projects_liked.remove(project)
 
     def has_liked(self, project):
         return self.projects_liked.filter(pk=project.pk).exists()
@@ -94,3 +95,10 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     def __str__ (self):
         return f"{self.email}"
 
+
+class Skill(AbstractModel):
+    owner = models.ForeignKey('core_user.User', on_delete=models.CASCADE)
+    nane = models.CharField(max_length=64)
+
+    def __str__(self) -> str:
+        return self.name

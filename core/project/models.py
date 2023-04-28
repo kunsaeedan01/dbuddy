@@ -22,6 +22,7 @@ class Project(AbstractModel):
     title = models.CharField(max_length=128, default='Project Title', null=False, blank=False)
     description = models.TextField(null=True, blank=True)
     type = models.CharField(max_length=2, choices=TYPES)
+    tags = models.ManyToManyField('core_project.Tag', blank=True)
     participant1 = models.ForeignKey(to='core_user.User', related_name='participant1', on_delete=models.SET_NULL, null=True, blank=True)
     participant2 = models.ForeignKey(to='core_user.User', related_name='participant2', on_delete=models.SET_NULL, null=True, blank=True)
     participant3 = models.ForeignKey(to='core_user.User', related_name='participant3', on_delete=models.SET_NULL, null=True, blank=True)
@@ -34,3 +35,10 @@ class Project(AbstractModel):
 
     class Meta:
         db_table = "'core.post'"
+
+
+class Tag(AbstractModel):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
