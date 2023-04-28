@@ -46,9 +46,9 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
 	)
 
     STATUS_CHOICE = (
-        (0, _('Coordinator')),
-        (1, _('Instructor')),
-        (2, _('Student')),
+        ("0", _('Coordinator')),
+        ("1", _('Instructor')),
+        ("2", _('Student')),
     )
 
     FACULTY_CHOICE = (
@@ -69,7 +69,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(db_index=True, unique=True)
     gender = models.CharField(_("Gender"), choices=GENDER_CHOICE, default="M", max_length=1)
-    status = models.IntegerField(_('Role status'), choices=STATUS_CHOICE, null=True, blank=True, default=2)
+    status = models.CharField(_('Role status'), choices=STATUS_CHOICE, null=True, blank=True, default="2", max_length=10)
     faculty = models.CharField(_('Study/work faculty'), choices=FACULTY_CHOICE, max_length=4)
     group = models.CharField(max_length=16, null=True, blank=True)
     skills = models.ManyToManyField('core_user.Skill', blank=True)
