@@ -10,12 +10,12 @@ function Registration() {
         <div className="col-md-6 d-flex align-items-center">
           <div className="text-center px-4">
             <h1 className="text-primary">
-              Welcome to DBuddy!
+              Welcome to DiploMate!
             </h1>
             <p>
               This is a new social media site that will
-              allow you to find teammates and an instructor for
-              your coming diploma project. Register now
+              allow you to find an instructor and teammates (diplomates) for
+              your diploma project. Register now
               and start enjoying! <br />
               Or if you already have an account, please {""}
               <Link to="/login/">Login</Link>.

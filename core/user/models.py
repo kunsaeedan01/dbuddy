@@ -8,6 +8,10 @@ from django.utils.translation import gettext_lazy as _
 from core.abstract.models import AbstractModel, AbstractManager
 
 
+def user_directory_path(instance, filename):
+    return 'user_{0}/{1}'.format(instance.public_id, filename)
+
+
 class UserManager(BaseUserManager, AbstractManager):
 
     def create_user(self, username, email, password=None, **kwargs):
@@ -74,6 +78,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     group = models.CharField(max_length=16, null=True, blank=True)
     skills = models.ManyToManyField('core_user.Skill', blank=True, null=True)
     bio = models.TextField(null=True)
+    avatar=models.ImageField(null=True, blank=True, upload_to=user_directory_path)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     projects_liked = models.ManyToManyField("core_project.Project", related_name="liked_by")

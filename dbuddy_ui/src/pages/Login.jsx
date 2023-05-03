@@ -11,7 +11,7 @@ function Login() {
     align-items-center">
     <div className="content text-center px-4">
     <h1 className="text-primary">
-    Welcome to DBuddy!</h1>
+    Welcome to DiploMate!</h1>
                         <p className="content">
         Login now and start enjoying! <br />
     Or if you don't have an account, please {" "}

@@ -4,6 +4,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
+import SingleProject from "./pages/SingleProject";
 
 function App() {
   return (
@@ -16,6 +17,15 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path='/project/:projectId/'
+        element={
+          <ProtectedRoute>
+            <SingleProject/>
+          </ProtectedRoute>
+        }>
+        
+      </Route>
       <Route path="/login/" element={<Login />} />
       <Route path="/register/" element={<Registration />} />
     </Routes>
