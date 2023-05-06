@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { format } from "timeago.js";
-import { LikeFilled, CommentOutlined, LikeOutlined, MoreOutlined } from "@ant-design/icons";
+import { LikeFilled, CommentOutlined, LikeOutlined, MoreOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Image, Card, Dropdown, Button, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { randomAvatar } from "../../utils";
+import { Link, useNavigate } from "react-router-dom";
 import axiosService from "../../helpers/axios";
 import Toaster from "../Toaster";
 import { getUser } from "../../hooks/user.actions";
@@ -24,9 +23,20 @@ const MoreToggleIcon = React.forwardRef(({ onClick }, ref) => (
 
 
 function Project(props) {
+
+  const typeMap = {
+    "WA": "Web application", 
+    "HW": "Hardware", 
+    "MA": "Mobile application",
+    "GM": "Game",
+    "MD": "Media",
+    "RT": "Reserch",
+    "NN": "Neural Network"
+    }
     const { project, refresh, isSingleProject } = props;
     const user = getUser();
     const [showToast, setShowToast] = useState(false);
+    const navigate = useNavigate();
 
 
     const handleLikeClick = (action) => {
@@ -51,7 +61,8 @@ function Project(props) {
     return (
         <>
          <Card className="rounded-3 my-4">
-            <Card.Body>
+          <Card.Body>
+            <div>
                 <Card.Title className="d-flex flex-row
                 justify-content-between">
                 {user.name === project.author.name && (
@@ -70,21 +81,22 @@ function Project(props) {
                                 </Dropdown>                
                 </div>            
                         )}
-                        </Card.Title>
+              </Card.Title>
+              </div>
                 <div className="d-flex flex-row">
-                <Image
-                src={randomAvatar()}
+                {/* <Image
+                src={project.author.avatar}
                 roundedCircle
                 width={48}
                 height={48}
                 className="me-2 border border-primary
                 border-2"
-                />
+                /> */}
                 <div className="d-flex flex-column
                 justify-content-start
                 align-self-center mt-2">
                 <p className="fs-6 m-0">
-                                    {project.title} by {project.author.username}</p>
+                  {project.title} by {project.author.first_name} { project.author.last_name}</p>
                 {/* <p className="fs-6 m-0">
                 {project.author.name}</p> */}
                 <p className="fs-6 fw-lighter">
@@ -92,7 +104,7 @@ function Project(props) {
                 </p>
                 </div>
                 </div>
-                    <Card.Subtitle>Type: { project.type }</Card.Subtitle>
+                    <Card.Subtitle>Type: { typeMap[project.type] }</Card.Subtitle>
                     <Card.Text>{project.description}</Card.Text>
                     <div className="d-flex flex-row">
                 <LikeFilled
@@ -111,7 +123,7 @@ function Project(props) {
                 <small>{project.likes_count} like</small>
                 </p>
                     </div>
-            {!isSingleProject && (
+            {/* {!isSingleProject && (
               <p className="ms-1 fs-6">
                 <small>
                   <Link to={`/project/${project.id}/`}>
@@ -119,7 +131,7 @@ function Project(props) {
                   </Link>
                 </small>
               </p>
-            )}
+            )} */}
                 </Card.Body>
                 <Card.Footer className="d-flex bg-white w-50
                     justify-content-between border-0">
@@ -147,14 +159,15 @@ function Project(props) {
                     </div>
             {!isSingleProject && (
             <div className="d-flex flex-row">
-              <CommentOutlined
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  padding: "2px",
-                  fontSize: "20px",
-                  color: "#C4C4C4",
-                }}
+              <PlusCircleOutlined
+                  style={{
+                    width: "24px",
+                    height: "24px",
+                    padding: "2px",
+                    fontSize: "20px",
+                    color: "#C4C4C4",
+                  }}
+                  onClick={() => { navigate(`/project/${project.id}/`) }}
               />
               <p className="ms-1 mb-0">
                 <small>Join</small>

@@ -92,6 +92,9 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
 
     def has_liked(self, project):
         return self.projects_liked.filter(pk=project.pk).exists()
+    
+    def name(self): 
+        return f"{self.first_name} {self.last_name}"
 
     USERNAME_FIELD = 'username'
     # REQUIRED_FIELDS = ['username']

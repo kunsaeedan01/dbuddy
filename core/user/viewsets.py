@@ -17,7 +17,7 @@ class UserViewSet(AbstractViewSet):
         return User.objects.exclude(is_superuser=True)
 
     def get_object(self):
-        obj = super().get_object()
+        obj = User.objects.get_object_by_public_id(self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
         return obj
 

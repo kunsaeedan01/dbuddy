@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosService from "../helpers/axios";
 
 function useUserActions() {
   const navigate = useNavigate();
@@ -9,7 +10,21 @@ function useUserActions() {
     login,
     register,
     logout,
+    edit,
   };
+
+  function edit(data, userId) {
+    return axiosService
+      .patch(`${baseURL}/user/${userId}/`, data)
+      .then((res) => {
+        localStorage.setItem(("auth", 
+          JSON.stringify({
+          access: getAccessToken(),
+          refresh: getRefreshToken(),
+          user: res.data,
+        })))
+      })
+  }
 
   // Login the user
   function login(data) {

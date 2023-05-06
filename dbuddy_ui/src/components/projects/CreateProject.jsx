@@ -87,9 +87,11 @@ function CreateProject(props) {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Type</Form.Label>
-                            <Form.Select
+                            <Form.Control
+                            as="select"
                             name="type"
-                            value={form.type}
+                                value={form.type}
+                                required
                             onChange={(e) => setForm({ ...form, type: e.target.value })}>
                             <option value='WA'>Web-application</option>
                             <option value="MA">Mobile application</option>
@@ -98,7 +100,7 @@ function CreateProject(props) {
                             <option value='MD'>Media</option>
                             <option value="NN">Neural Network</option>
                             <option value="RT">Research</option>
-                        </Form.Select>
+                        </Form.Control>
                             <Form.Control.Feedback type="invalid">
                                 Please select a type of project.
                             </Form.Control.Feedback>

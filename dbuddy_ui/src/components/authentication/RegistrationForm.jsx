@@ -121,13 +121,14 @@ function RegistrationForm() {
          
          <Form.Group className="mb-3">
             <Form.Label>Gender</Form.Label>
-            <Form.Select
+       <Form.Control
+         as="select"
                 value={form.gender}
                 onChange={(e) => setForm({ ...form, gender: e.target.value })}
             >
             <option value="M">Male</option>
             <option value="F">Female</option>
-            </Form.Select>
+            </Form.Control>
             <Form.Control.Feedback type="invalid">
             Please select a gender.
             </Form.Control.Feedback>
@@ -135,22 +136,24 @@ function RegistrationForm() {
          
          <Form.Group className="mb-3">
             <Form.Label>Status</Form.Label>
-            <Form.Select
+       <Form.Control
+         as="select"
             value={form.status}
             onChange={(e) => setForm({ ...form, status: e.target.value })}
         >
             <option value='0'>Coordinator</option>
             <option value="1">Instructor</option>
             <option value="2">Student</option>
-        </Form.Select>
+        </Form.Control>
         <Form.Control.Feedback type="invalid">
             Please select a status.
         </Form.Control.Feedback>
          </Form.Group>
          
         <Form.Group className="mb-3">
-            <Form.Label>Status</Form.Label>
-            <Form.Select
+            <Form.Label>Faculty</Form.Label>
+       <Form.Control
+         as="select"
             value={form.faculty}
             onChange={(e) => setForm({ ...form, faculty: e.target.value })}
         >
@@ -163,7 +166,7 @@ function RegistrationForm() {
             <option value='CS'>Cybersecurity</option>
             <option value="DJ">Digital Journalism</option>
             <option value="ITM">IT Management</option>
-        </Form.Select>
+        </Form.Control>
         <Form.Control.Feedback type="invalid">
             Please select a faculty.
         </Form.Control.Feedback>

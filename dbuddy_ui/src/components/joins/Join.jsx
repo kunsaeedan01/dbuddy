@@ -42,7 +42,7 @@ function Join(props) {
                 <Card.Title className="d-flex flex-row justify-content-between">
                     <div className="d-flex flex-row">
                         <Image
-                            src={randomAvatar()}
+                            src={user.avatar}
                             roundedCircle
                             width={48}
                             height={48}

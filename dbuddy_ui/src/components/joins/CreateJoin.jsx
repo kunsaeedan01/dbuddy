@@ -2,14 +2,12 @@ import React, { useState, useContext } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
-import { randomAvatar } from "../../utils";
 import {Context} from "../Layout"
 
 
 
 function CreateJoin(props) {
     const { projectId, refresh } = props
-    const [avatar, setAvatar] = useState(randomAvatar());
     const [validated, setValidated] = useState(false);
     const [form, setForm] = useState({});
     const { toaster, setToaster } = useContext(Context);
@@ -57,7 +55,7 @@ function CreateJoin(props) {
             validated={validated}
             onSubmit={handleSubmit}
             > <Image
-                src={avatar}
+                src={user.avatar}
                 roundedCircle
                 width={48}
                 height={48}
