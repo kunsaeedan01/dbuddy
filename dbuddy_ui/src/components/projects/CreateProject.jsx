@@ -29,6 +29,7 @@ function CreateProject(props) {
             title: form.title,
             description: form.description,
             type: form.type,
+            technologies: form.technologies
         }
         axiosService
             .post("/project/", data)
@@ -104,7 +105,18 @@ function CreateProject(props) {
                             <Form.Control.Feedback type="invalid">
                                 Please select a type of project.
                             </Form.Control.Feedback>
-                    </Form.Group>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Technologies</Form.Label>
+                            <Form.Control
+                                name="title"
+                                value={form.technologies}
+                                onChange={(e) => setForm({ ...form, technologies: e.target.value })}
+                                required
+                                type="text"
+                            >
+                            </Form.Control>
+                        </Form.Group>
                     </Form>
                 </Modal.Body>
 

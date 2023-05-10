@@ -3,6 +3,9 @@ import { Navbar, Container, Image, NavDropdown, Nav }
 from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { getUser } from "../hooks/user.actions";
+import studentImage from '../images/student.png'
+import instructorImage from '../images/instructor.png'
+import coordinatorImage from '../images/coordinator.jpg'
 
 
 function Navigationbar() {
@@ -12,6 +15,16 @@ function Navigationbar() {
         navigate('/login/')
     }
     const user = getUser()
+
+    const getStatusImage = (status) => {
+        if (user.status === "0") {
+            return coordinatorImage
+        } else if (user.status === "1") {
+            return instructorImage
+        } else if (user.status === "2") {
+            return studentImage
+        }
+    }
     return(
     <Navbar bg="primary" variant="dark">
         <Container>
@@ -21,10 +34,14 @@ function Navigationbar() {
             <Navbar.Collapse
                 className="justify-content-end">
                 <Nav>
-                <NavDropdown
+                        <NavDropdown
+                            // title={
+                            //     user.first_name + " " + user.last_name
+                            // }
+                            // style={{color: "white"}}
                 title={
                 <Image
-                src={user.avatar}
+                src={getStatusImage(user.status)}
                 roundedCircle
                 width={36}
                 height={36}

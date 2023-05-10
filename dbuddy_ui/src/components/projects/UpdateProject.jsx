@@ -14,7 +14,8 @@ function UpdateProject(props) {
         author: project.author.id,
         title: project.title,
         description: project.description,
-        type: project.type
+        type: project.type,
+        technologies: project.technologies
     });
 
     const handleSubmit = (event) => {
@@ -30,7 +31,8 @@ function UpdateProject(props) {
             author: form.author, 
             title: form.title, 
             description: form.description,
-            type: form.type
+            type: form.type,
+            technologies: form.technologies
         }
         axiosService.put(`/project/${project.id}/`, data)
             .then(() => {
@@ -51,14 +53,16 @@ function UpdateProject(props) {
         </Modal.Header>
         <Modal.Body className="border-0">
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
+              <Form.Group className="mb-3">
+                <Form.Label>Title</Form.Label>
               <Form.Control
                 name="title"
                 value={form.title}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
+              <Form.Group className="mb-3">
+                <Form.Label>Description</Form.Label>
               <Form.Control
                 name="description"
                 value={form.description}
@@ -67,7 +71,8 @@ function UpdateProject(props) {
                 rows={3}
               />
                         </Form.Group>
-            <Form.Group className="mb-3">
+              <Form.Group className="mb-3">
+                <Form.Label>Type</Form.Label>
                         <Form.Select
                             name="type"
                             value={form.type}
@@ -80,6 +85,14 @@ function UpdateProject(props) {
                             <option value="NN">Neural Network</option>
                             <option value="RT">Research</option>
                         </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Technologies</Form.Label>
+              <Form.Control
+                name="technologies"
+                value={form.technologies}
+                onChange={(e) => setForm({ ...form, technologies: e.target.value })}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
