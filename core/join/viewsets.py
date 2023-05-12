@@ -8,12 +8,15 @@ from django.http import QueryDict
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
+from core.auth.permissions import UserPermission
+from rest_framework.permissions import AllowAny
 # Create your views here.
 
 
 class JoinViewSet(AbstractViewSet):
     queryset = Join.objects.all()
     serializer_class = JoinSerializer
+    permission_classes = (UserPermission,)
 
     def perform_create(self, serializer):
         serializer.save(applicant=self.request.user)

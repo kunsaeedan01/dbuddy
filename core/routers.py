@@ -20,4 +20,5 @@ urlpatterns = [
     *router.urls,
     *projects_router.urls,
     path('project/<slug:project__slug>/join/<slug:join__public_id>/accept/', JoinViewSet.as_view({'patch': 'accept'}), name='project-join-accept'),
+    path('project/search/', ProjectViewSet.as_view({'get': 'list'}), name='project-search'),
 ]

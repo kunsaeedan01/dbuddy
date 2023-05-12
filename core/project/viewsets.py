@@ -4,8 +4,11 @@ from core.project.models import Project
 from core.project.serializers import ProjectSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Q 
 from rest_framework.decorators import action
 from core.auth.permissions import UserPermission
+from rest_framework.decorators import action
+from rest_framework import status
 
 
 class ProjectViewSet(AbstractViewSet):
@@ -30,7 +33,8 @@ class ProjectViewSet(AbstractViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def get_queryset(self):
-        return Project.objects.all()
+        queryrset = Project.objects.all()
+        return queryrset
     
     def get_object(self):
         obj = Project.objects.get_object_by_public_id(self.kwargs['pk'])
@@ -43,4 +47,19 @@ class ProjectViewSet(AbstractViewSet):
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    @action(detail=False, methods=['GET'], url_path='search')
+    def search_projects(self, request):
+        search_query = self.request.query_params.get('search')
+
+        if search_query:
+            projects = Project.objects.filter(
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(type__icontains=search_query) |
+                Q(technologies__icontains=search_query)
+            )
+            serializer = ProjectSerializer(projects, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response("No search query provided", status=status.HTTP_400_BAD_REQUEST)
         

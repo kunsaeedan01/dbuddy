@@ -2,7 +2,11 @@ import React, { useState, useContext } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
-import {Context} from "../Layout"
+import { Context } from "../Layout"
+import studentImage from '../../images/student.png';
+import instructorImage from '../../images/instructor.png';
+import coordinatorImage from '../../images/coordinator.jpg'
+
 
 
 
@@ -12,6 +16,16 @@ function CreateJoin(props) {
     const [form, setForm] = useState({});
     const { toaster, setToaster } = useContext(Context);
     const user = getUser();
+
+    const getStatusImage = (status) => {
+    if (user.status === "0") {
+      return coordinatorImage;
+    } else if (user.status === "1") {
+      return instructorImage;
+    } else if (user.status === "2") {
+      return studentImage;
+    }
+  };
 
     const handleSubmit = (event) => {
         event.preventDefault();

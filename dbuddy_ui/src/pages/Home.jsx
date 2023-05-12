@@ -10,6 +10,7 @@ import ProfileCard from "../components/profile/ProfileCard";
 import studentImage from '../images/student.png'
 import instructorImage from '../images/instructor.png'
 import coordinatorImage from '../images/coordinator.jpg'
+import SearchBar from "../components/SearchBar";
 
 
 function Home() {
@@ -24,7 +25,12 @@ function Home() {
     return (
         <Layout>
             <Row className="justify-content-evenly">
+
                 <Col sm={7}>
+                    <Row className="my-4">
+                        <SearchBar />
+                        <br/><br/><br/><br/>
+                    </Row>
                     <Row className="border rounded align-items-center">
                         {user.status === "0" && (
                     <Col className="flex-shrink-1">
