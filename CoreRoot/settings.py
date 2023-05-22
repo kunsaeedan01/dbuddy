@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'core.project', 
     'core.comment',
     'core.join',
+    'django_extensions',
     
 ]
 
@@ -176,3 +178,10 @@ CSRF_TRUSTED_ORIGINS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 DEFAULT_AVATAR_URL = "https://avatars.dicebear.com/api/identicon/.svg"
+
+os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
+
+GRAPH_MODELS ={
+'all_applications': True,
+'graph_models': True,
+}

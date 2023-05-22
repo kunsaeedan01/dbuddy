@@ -4,9 +4,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title = "dbuddy API", 
+        title = "DiploMate API", 
         default_version='v1', 
-        description='Endpoints of dubddy API',
+        description='Endpoints of DiploMate API',
         contact = openapi.Contact(email="rakhat.erezhepov02@gmail.com"),
         license=openapi.License(name="MIT License")
     ),

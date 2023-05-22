@@ -1,16 +1,29 @@
 import React, { useState } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
+import axiosService from "../helpers/axios";
 
-function SearchBar({ onSearch }) {
+
+function SearchBar() {
   const [searchText, setSearchText] = useState("");
 
   const handleInputChange = (event) => {
     setSearchText(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSearch(searchText);
+    try {
+      const response = await axiosService.get("/project/search/", {
+        params: {
+          search: searchText,
+        },
+      });
+      // Handle the response data here
+      console.log(response.data);
+    } catch (error) {
+      // Handle error here
+      console.log(error);
+    }
   };
 
   return (
