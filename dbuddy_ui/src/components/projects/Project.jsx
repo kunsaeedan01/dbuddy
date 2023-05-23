@@ -105,7 +105,8 @@ function Project(props) {
                 </div>
                 </div>
             <Card.Subtitle style={{"margin-bottom": "7px"}}>Type: <span style={{"font-weight": "normal"}}>{typeMap[project.type]}</span></Card.Subtitle>
-            <Card.Subtitle>Technologies: <span style={{"font-weight": "normal"}}>{ project.technologies }</span></Card.Subtitle>
+            <Card.Subtitle>Technologies: <span style={{ "font-weight": "normal" }}>{project.technologies}</span></Card.Subtitle>
+            
                     <Card.Text>{project.description}</Card.Text>
                     <div className="d-flex flex-row">
                 <LikeFilled

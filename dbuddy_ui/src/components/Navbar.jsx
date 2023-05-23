@@ -27,7 +27,7 @@ function Navigationbar() {
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand className="fw-bold" href="#home" style={{"margin-right": "200px", "font-size": "24px"}}>
+        <Navbar.Brand className="fw-bold" href="/" style={{"margin-right": "200px", "font-size": "24px"}}>
           DiploMate
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />

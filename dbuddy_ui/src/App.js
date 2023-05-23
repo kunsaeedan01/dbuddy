@@ -7,7 +7,9 @@ import Login from "./pages/Login";
 import SingleProject from "./pages/SingleProject";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
-
+import About from "./pages/About";
+import Projects from "./pages/Projects";
+import Profiles from "./pages/Profiles";
 
 function App() {
   return (
@@ -48,6 +50,9 @@ function App() {
 
       <Route path="/login/" element={<Login />} />
       <Route path="/register/" element={<Registration />} />
+      <Route path='/about/' element={<About />} />
+      <Route path='/projects/' element={<Projects />} />
+      <Route path='/profiles/' element={<Profiles/>} />
     </Routes>
   );
 }

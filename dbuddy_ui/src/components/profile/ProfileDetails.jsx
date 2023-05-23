@@ -2,6 +2,9 @@ import React from "react";
 import { Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../hooks/user.actions";
+import studentImage from '../../images/student.png'
+import coordinatorImage from '../../images/coordinator.jpg'
+import instructorImage from '../../images/instructor.png'
 
 
 export default function ProfileDetails(props) {
@@ -11,6 +14,12 @@ export default function ProfileDetails(props) {
         "1": "Instructor",
         "2": "Student",
     };
+
+    const imageMap = {
+        "0": coordinatorImage,
+        "1": instructorImage,
+        "2": studentImage
+    }
     
     const facultyMap = {
         "SE": "Software engineering",
@@ -40,7 +49,7 @@ export default function ProfileDetails(props) {
         <div>
             <div className="d-flex flex-row border-bottom p-5">
                 <Image
-                    src={user.avatar}
+                    src={imageMap[user.status]}
                     roundedCircle
                     width={120}
                     height={120}
