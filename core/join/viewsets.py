@@ -9,14 +9,14 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from core.auth.permissions import UserPermission
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 # Create your views here.
 
 
 class JoinViewSet(AbstractViewSet):
     queryset = Join.objects.all()
     serializer_class = JoinSerializer
-    permission_classes = (UserPermission,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(applicant=self.request.user)
@@ -49,4 +49,6 @@ class JoinViewSet(AbstractViewSet):
                     project.save()
             return Response({'detail': 'Join request accepted'})
         else:
-            return Response({'detail': 'Only author can accept join request'}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'detail': 'Only author can accept join request'}, 
+                            status=status.HTTP_403_FORBIDDEN)
+        

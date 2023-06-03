@@ -17,11 +17,12 @@ class UserManager(BaseUserManager, AbstractManager):
     def create_user(self, username, email, password=None, **kwargs):
         if username is None:
             raise TypeError('User must have an username')
-        # if email is None:
-        #     raise TypeError('User must have an email')
+        if email is None:
+            raise TypeError('User must have an email')
         if password is None:
             raise TypeError('User must have a password')
         user = self.model(username=username, email=self.normalize_email(email), **kwargs)
+        #user = self.create_user(username, email, password, **kwargs)
         user.set_password(password)  # hash the password before storing
         user.save(using=self._db)
         return user

@@ -36,11 +36,13 @@ function LoginForm() {
     className="border p-4 rounded"
     noValidate
     validated={validated}
-    onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
+            data-testid="login-form"
  >
- <Form.Group className="mb-3">
+ <Form.Group className="mb-3" >
  <Form.Label>Username</Form.Label>
- <Form.Control
+    <Form.Control
+        data-testid="username-field"
         value={form.username}
         onChange={(e) => setForm({...form, username: e.target.value })}
         required
@@ -60,7 +62,8 @@ function LoginForm() {
  e.target.value })}
  required
  type="password"
- placeholder="Password"
+                    placeholder="Password"
+                    data-testid="password-field"
  />
  <Form.Control.Feedback type="invalid">
  Please provide a valid password.

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { Row, Col, Image } from "react-bootstrap";
 import { fetcher } from "../helpers/axios";
@@ -11,53 +11,55 @@ import studentImage from '../images/student.png'
 import instructorImage from '../images/instructor.png'
 import coordinatorImage from '../images/coordinator.jpg'
 import SearchBar from "../components/SearchBar";
+import axiosService from "../helpers/axios";
 
 
 function Projects() {
+    const [searchResults, setSearchResults] = useState(null);
     const projects = useSWR("/project/", fetcher, {
-        refreshInterval: 10000,
+        refreshInterval: 3000,
     });
-    const profiles = useSWR("/user/?limit=5", fetcher)
     const user = getUser();
+
+    const handleSearch = async (searchText) => {
+      try {
+        const response = await axiosService.get("/project/search/", {
+          params: {
+            search: searchText,
+          },
+        });
+        setSearchResults(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     if (!user) {
         return <div>Loading!</div>
     }
+
     return (
         <Layout>
             <Row className="justify-content-evenly">
 
                 <Col sm={10}>
-                    <Row className="my-4">
-                        <SearchBar />
+                    {/* <Row className="my-4">
+                        <SearchBar onSearch={handleSearch} />
                         <br/><br/><br/><br/>
-                    </Row>
+                    </Row> */}
                     <Row className="border rounded align-items-center">
-                        {user.status === "0" && (
-                    <Col className="flex-shrink-1">
-                        <Image src={coordinatorImage} roundedCircle width={52} height={52} className="my-2"/>
-                    </Col>
-                )}
-
-                {user.status === "1" && (
-                <Col className="flex-shrink-1">
-                        <Image src={instructorImage} roundedCircle width={52} height={52} className="my-2"/>
-                    </Col>
-                )}
-
-                {user.status === "2" && (
-                    <Col className="flex-shrink-1">
-                        <Image src={studentImage} roundedCircle width={52} height={52} className="my-2"/>
-                    </Col>
-                )}
-                        
-                    <Col sm={10} className="flex-grow-1">
-                            <CreateProject refresh={projects.mutate } />
-                    </Col>
+                        {/* Render profile image based on user status */}
+                        {/* ... */}
                     </Row>
                     <Row className='my-4'>
-                        {projects.data?.results.map((project, index) => (
-                            <Project key={ index } project={project} refresh={projects.mutate} />
-                        ))}
+                        {searchResults
+                          ? searchResults.map((project, index) => (
+                              <Project key={index} project={project} refresh={projects.mutate} />
+                            ))
+                          : projects.data?.results.map((project, index) => (
+                              <Project key={index} project={project} refresh={projects.mutate} />
+                            ))
+                        }
                     </Row>
                 </Col>
 

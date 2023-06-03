@@ -21,7 +21,7 @@ class RegisterViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         # user = User.objects.create_user(username=data.get('username'), email=data.get('email'), password=password)
-        user = User.objects.create_user(username=data.get('username'), password=password)
+        user = User.objects.create_user(username=data.get('username'), email=data.get('email'), password=password)
         refresh = RefreshToken.for_user(user)
         tokens = {
             'refresh': str(refresh),

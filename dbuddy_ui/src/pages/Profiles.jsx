@@ -29,10 +29,10 @@ export default function Profiles() {
             <Row className="justify-content-evenly">
 
                 <Col sm={7}>
-                    <Row className="my-4">
+                    {/* <Row className="my-4">
                         <SearchBar />
                         <br /><br /><br /><br />
-                    </Row>
+                    </Row> */}
 
 
                 </Col>

@@ -36,7 +36,8 @@ function Project(props) {
     const { project, refresh, isSingleProject } = props;
     const user = getUser();
     const [showToast, setShowToast] = useState(false);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  
 
 
     const handleLikeClick = (action) => {
@@ -60,14 +61,15 @@ function Project(props) {
 
     return (
         <>
-         <Card className="rounded-3 my-4">
+         <Card className="rounded-3 my-4" data-testid="project-test">
           <Card.Body>
             <div>
                 <Card.Title className="d-flex flex-row
                 justify-content-between">
-                {user.name === project.author.name && (
-                 <div>
-                                <Dropdown>
+                {user.username === project.author.username && (
+                  <div>
+                 
+                      <Dropdown>
                                     <Dropdown.Toggle as={MoreToggleIcon}></Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         <UpdateProject project={project}refresh={refresh} />
@@ -78,7 +80,8 @@ function Project(props) {
                                         Delete
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
-                                </Dropdown>                
+                                </Dropdown>  
+
                 </div>            
                         )}
               </Card.Title>

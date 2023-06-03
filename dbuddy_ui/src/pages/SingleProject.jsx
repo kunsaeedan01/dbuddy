@@ -1,39 +1,36 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { fetcher } from "../helpers/axios";
 import Project from "../components/projects/Project";
 import CreateJoin from "../components/joins/CreateJoin";
-import Join from "../components/joins/Join";
 import Layout from "../components/Layout";
 
-function SingleProject(props) {
+function SingleProject() {
   let { projectId } = useParams();
   const project = useSWR(`/project/${projectId}/`, fetcher);
   const joins = useSWR(`/project/${projectId}/join/`, fetcher);
-  console.log(joins);
+
+  if (!project.data) {
+    return (
+      <Layout hasNavigationBack>
+        <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout hasNavigationBack>
-      {project.data ? (
-        <Row className="justify-content-center">
-          <Col sm={8}>
-            <Project project={project.data} refresh={project.mutate} isSingleProject />
-            <CreateJoin projectId={project.data.id} refresh={joins.mutate} />
-
-            {joins.data && Array.isArray(joins.data.results) && joins.data.results.map((join) => (
-              <Join
-                key={join.id}
-                projectId={project.data.id}
-                join={join}
-                refresh={joins.mutate}
-              />
-            ))}
-          </Col>
-        </Row>
-      ) : (
-        <div>Loading...</div>
-      )}
+      <Row className="justify-content-center">
+        <Col sm={8}>
+          <Project project={project.data} refresh={project.mutate} isSingleProject />
+          <CreateJoin projectId={project.data.id} refresh={joins.mutate} />
+        </Col>
+      </Row>
     </Layout>
   );
 }
