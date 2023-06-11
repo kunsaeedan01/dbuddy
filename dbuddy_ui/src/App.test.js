@@ -8,11 +8,11 @@ function render(ui, {...renderOptions} = {}) {
   return rtlRender(ui, {wrapper: Wrapper, ...renderOptions})
 }
 
-test('renders learn react link', () => {
+test('renders learn react link', async () => {
   render(
       <App />
     );
-  const textElement = screen.getByText(/Welcome to DiploMate!/i);
+ const textElement = screen.getByText(/Welcome to DiploMate!/i);
   expect(textElement).toBeInTheDocument();
 });
 

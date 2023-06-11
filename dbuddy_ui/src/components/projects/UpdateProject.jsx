@@ -52,13 +52,14 @@ function UpdateProject(props) {
           <Modal.Title>Update Project</Modal.Title>
         </Modal.Header>
         <Modal.Body className="border-0">
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit} data-testid="update-project-form">
               <Form.Group className="mb-3">
                 <Form.Label>Title</Form.Label>
               <Form.Control
                 name="title"
                 value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  data-testid="project-title-field"
               />
             </Form.Group>
               <Form.Group className="mb-3">
@@ -68,7 +69,8 @@ function UpdateProject(props) {
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 as="textarea"
-                rows={3}
+                  rows={3}
+                  data-testid="project-description-field"
               />
                         </Form.Group>
               <Form.Group className="mb-3">
@@ -91,13 +93,14 @@ function UpdateProject(props) {
               <Form.Control
                 name="technologies"
                 value={form.technologies}
-                onChange={(e) => setForm({ ...form, technologies: e.target.value })}
+                  onChange={(e) => setForm({ ...form, technologies: e.target.value })}
+                  data-testid="technologies-field"
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" onClick={handleSubmit} data-testid="update-project-submit">
             Modify
           </Button>
         </Modal.Footer>

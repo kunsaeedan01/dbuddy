@@ -51,7 +51,8 @@ function CreateProject(props) {
         <>
         <Form.Group className="my-3 w-75">
             <Form.Control
-                className="py-2 rounded-pill border-primary text-primary"
+                    className="py-2 rounded-pill border-primary text-primary"
+                    data-testid="show-modal-form"
                 type="text"
                 placeholder="Add a project"
                 onClick={handleShow} />
@@ -63,7 +64,7 @@ function CreateProject(props) {
                 <Modal.Title>Create Project</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="border-0">
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit} data-testid="create-project-form"> 
                         <Form.Group className="mb-3">
                             <Form.Label>Title</Form.Label>
                             <Form.Control
@@ -72,6 +73,7 @@ function CreateProject(props) {
                                 onChange={(e) => setForm({ ...form, title: e.target.value })}
                                 required
                                 type="text"
+                                data-testid="project-title-field"
                             >
                             </Form.Control>
                         </Form.Group>
@@ -83,6 +85,7 @@ function CreateProject(props) {
                                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                                 as="textarea"
                                 rows={3}
+                                data-testid="project-description-field"
                             >
                             </Form.Control>
                         </Form.Group>
@@ -114,6 +117,7 @@ function CreateProject(props) {
                                 onChange={(e) => setForm({ ...form, technologies: e.target.value })}
                                 required
                                 type="text"
+                                data-testid="technologies-field"
                             >
                             </Form.Control>
                         </Form.Group>
@@ -123,7 +127,9 @@ function CreateProject(props) {
                 <Modal.Footer>
                     <Button variant="primary"
                         onClick={handleSubmit}
-                        disabled={form.description === undefined}>
+                        disabled={form.description === undefined}
+                        data-testid="create-project-submit">
+                        
                         Add
                     </Button>
                 </Modal.Footer>
