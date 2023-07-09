@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f%##rse6qch66c7z*ob9vz8rn_muf1y!s4ennqjs)4d7wkwl=d'
+ENV = os.environ.get("ENV")
+SECRET_KEY = os.environ.get("SECRET_KEY", default='django-insecure-f%##rse6qch66c7z*ob9vz8rn_muf1y!s4ennqjs)4d7wkwl=d')
+
+# 'django-insecure-f%##rse6qch66c7z*ob9vz8rn_muf1y!s4ennqjs)4d7wkwl=d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if ENV == "PROD" else True 
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default="*").split(",")
 
 
 # Application definition
@@ -105,13 +111,13 @@ SIMPLE_JWT = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'coredb',
-        'USER': 'core',
-        'PASSWORD': '0512rahat',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.getenv("DATABASE_NAME", "coredb"),
+        "USER": os.getenv("DATABASE_USER", "core"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD", "0512rahat"),
+        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+        "PORT": os.getenv("DATABASE_PORT", "5432"),
+}
 }
 
 
